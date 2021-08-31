@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="edu.stevens.cs548.clinic.domain.SurgeryTreatment"/>
+    <fullyQualifiedTypeName name="edu.stevens.cs548.clinic.domain.DrugTreatment"/>
+    <fullyQualifiedTypeName name="edu.stevens.cs548.clinic.domain.Treatment"/>
+</qualifiedTypeNameHistroy>

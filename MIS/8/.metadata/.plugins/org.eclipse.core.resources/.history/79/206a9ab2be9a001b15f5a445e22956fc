@@ -1,0 +1,153 @@
+package edu.stevens.cs548.clinic.test;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import edu.stevens.cs548.clinic.domain.DrugTreatment;
+import edu.stevens.cs548.clinic.domain.Patient;
+import edu.stevens.cs548.clinic.domain.PatientFactory;
+import edu.stevens.cs548.clinic.domain.Provider;
+import edu.stevens.cs548.clinic.domain.ProviderFactory;
+import edu.stevens.cs548.clinic.domain.RadiologyTreatment;
+
+import edu.stevens.cs548.clinic.domain.SurgeryTreatment;
+import edu.stevens.cs548.clinic.domain.Treatment;
+import edu.stevens.cs548.clinic.domain.TreatmentFactory;
+import edu.stevens.cs548.clinic.service.dto.PatientDto;
+import edu.stevens.cs548.clinic.service.dto.ProviderDto;
+import edu.stevens.cs548.clinic.service.dto.TreatmentDto;
+import edu.stevens.cs548.clinic.service.dto.util.PatientDtoFactory;
+import edu.stevens.cs548.clinic.service.dto.util.ProviderDtoFactory;
+import edu.stevens.cs548.clinic.service.dto.util.TreatmentDtoFactory;
+import edu.stevens.cs548.clinic.service.ejb.IPatientService;
+import edu.stevens.cs548.clinic.service.ejb.IProviderService;
+
+/**
+ * Session Bean implementation class TestBean
+ */
+@Singleton
+@LocalBean
+@Startup
+public class InitBean {
+
+	private static Logger logger = Logger.getLogger(InitBean.class.getCanonicalName());
+	// TODO inject an EM
+	@PersistenceContext(unitName="ClinicDomain")
+	EntityManager em;
+	/**
+	 * Default constructor.
+	 */
+	public InitBean() {
+	}
+    
+	public static void info(String m) {
+		logger.info(m);
+	}
+
+	public void TestService() {
+
+	}
+	@Inject
+	private IPatientService patientService;
+	
+	@Inject
+	private IProviderService providerService;
+
+
+	@PostConstruct
+	private void init(){
+		/*
+		 * Put your testing logic here. Use the logger to display testing output in the server logs.
+		 */
+		logger.info("Your name here: Deng Xiong");
+
+		try {
+			PatientDtoFactory patientdtoFactory = new PatientDtoFactory();
+			PatientFactory patientFactory = new PatientFactory();
+			PatientDto patientdto;
+			ProviderDtoFactory providerdtoFactory = new ProviderDtoFactory();
+			ProviderFactory providerFactory = new ProviderFactory();
+			ProviderDto providerdto;
+			TreatmentDtoFactory treatmentdtoFactory = new TreatmentDtoFactory();
+			TreatmentFactory treatmentFactory = new TreatmentFactory();
+			TreatmentDto treatmentDto;
+
+
+			Patient mike = patientFactory.createPatient(123490678L, "Mike Jordan");
+			patientdto = patientdtoFactory.createPatientDto(mike);
+			long mikeId = patientService.addPatient(patientdto);
+			info("Patient " + mike.getName() + "created with id " + mikeId);
+
+			Provider russel = providerFactory.createProvider(222456798L, "Russel Westbrook", "Radiology");
+			providerdto = providerdtoFactory.createProviderDto(russel);
+			long russelId = providerService.addProvider(providerdto);
+			info("Provider " + russel.getName() + "created with id " + russelId);
+
+			Treatment drugTreatment = treatmentFactory.createDrugTreatment("Stomach Ache", "Paracetamol", 2);
+			treatmentDto = treatmentdtoFactory.createTreatmentDto((DrugTreatment) drugTreatment);
+			treatmentDto.setPatient(mikeId);
+			treatmentDto.setProvider(russelId);
+			long drugid = providerService.addTreatment(treatmentDto);
+
+			logger.info("Provider " + russel.getName() + " is treating patient " + mike.getName()
+					+ " - Drug Treatment ID : " + drugid);
+
+			Treatment surgeryTreatment = treatmentFactory.createSurgery(setDate("04/10/2021"), "Facture" );
+			treatmentDto = treatmentdtoFactory.createTreatmentDto((SurgeryTreatment) surgeryTreatment);
+			treatmentDto.setPatient(mikeId);
+			treatmentDto.setProvider(russelId);
+			long surgid = providerService.addTreatment(treatmentDto);
+
+			logger.info("Provider " + russel.getName() + " is treating patient " + mike.getName()
+					+ " - Surgery Treatment ID : " + surgid);
+
+			List<Date> radiologydateList = new ArrayList<Date>();
+			for (int i = 1; i < 4; i++) {
+				Date date = null;
+				date = setDate("10/" + i + "/2021");
+				radiologydateList.add(date);
+			}
+			Treatment radiologyTreatment = treatmentFactory.createRadiology(radiologydateList, "Lung Cancer" );
+			treatmentDto = treatmentdtoFactory.createTreatmentDto((RadiologyTreatment) radiologyTreatment);
+			treatmentDto.setPatient(mikeId);
+			treatmentDto.setProvider(russelId);
+			long rid = providerService.addTreatment(treatmentDto);
+
+			logger.info("Provider " + russel.getName() + " is treating patient " + mike.getName()
+					+ " - Radiology Treatment ID : " + rid);
+
+		} catch (Exception e) {
+
+			IllegalStateException ex = new IllegalStateException("Failed to add patient record.");
+			ex.initCause(e);
+			throw ex;
+
+		}
+	}
+
+	private Date setDate(String stringDate) {
+		Date date = null;
+		try {
+			String pattern = "MM/dd/yyyy";
+			SimpleDateFormat format = new SimpleDateFormat(pattern);
+			date = format.parse(stringDate);
+		} catch (Exception e) {
+			IllegalStateException ex = new IllegalStateException("ERROR!!");
+			ex.initCause(e);
+			throw ex;
+		}
+		return date;
+	}
+
+}

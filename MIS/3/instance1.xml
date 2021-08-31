@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clinic xmlns="http://cs548.stevens.edu/clinic/db"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://cs548.stevens.edu/clinic/db file:/D:/2021spring/cs548/e3/Assignment3-XQuery.xsd">
+    <patient>
+        <patient-id>-100</patient-id>
+        <name>Bob</name>
+        <treatment>
+            <id>-01</id>
+            <diagnosis>High Blood Pressure</diagnosis>
+            <drug>Lisinopril</drug>
+            <provider>
+                <npi>12345678</npi>
+                <name>Dr Kildare</name>
+            </provider>
+        </treatment>
+        <treatment>
+            <id>-02</id>
+            <diagnosis>Hypothyroidism</diagnosis>
+            <drug>Levothyroxine</drug>
+            <provider>
+                <npi>98765432</npi>
+                <name>Dr Welby</name>
+            </provider>
+        </treatment>
+        <treatment>
+            <id>-03</id>
+            <diagnosis>Bone Cancer</diagnosis>
+            <drug>Dactinomycin</drug>
+            <provider>
+                <npi>12345678</npi>
+                <name>Dr Kildare</name>
+            </provider>
+        </treatment>
+    </patient>
+    <patient>
+        <patient-id>-101</patient-id>
+        <name>Edward</name>
+        <treatment>
+            <id>-04</id>
+            <diagnosis>Brain Tumors</diagnosis>
+            <drug>Bevacizumab</drug>
+            <provider>
+                <npi>98765432</npi>
+                <name>Dr Welby</name>
+            </provider>
+        </treatment>
+        <treatment>
+            <id>-05</id>
+            <diagnosis>Breast Cancer</diagnosis>
+            <drug>Evista</drug>
+            <provider>
+                <npi>45678901</npi>
+                <name>Dr Deng</name>
+            </provider>
+        </treatment>
+        <treatment>
+            <id>-06</id>
+            <diagnosis>Cervical Cancer</diagnosis>
+            <drug>Avastin</drug>
+            <provider>
+                <npi>45678901</npi>
+                <name>Dr Deng</name>
+            </provider>
+        </treatment>
+    </patient>
+    <patient>
+        <patient-id>-102</patient-id>
+        <name>Rebecca</name>
+        <treatment>
+            <id>-07</id>
+            <diagnosis>Leukemia</diagnosis>
+            <drug>Arranon</drug>
+            <provider>
+                <npi>12345678</npi>
+                <name>Dr Kildare</name>
+            </provider>
+        </treatment>
+        <treatment>
+            <id>-08</id>
+            <diagnosis>Prostate Cancer</diagnosis>
+            <drug>Abiraterone Acetate</drug>
+            <provider>
+                <npi>98765432</npi>
+                <name>Dr Welby</name>
+            </provider>
+        </treatment>
+        <treatment>
+            <id>-09</id>
+            <diagnosis>Neuroblastoma</diagnosis>
+            <drug>Cyclophosphamide</drug>
+            <provider>
+                <npi>45678901</npi>
+                <name>Dr Deng</name>
+            </provider>
+        </treatment>
+    </patient>
+</clinic>
