@@ -1,2 +1,0 @@
-select ?treatment
-where { ?treatment  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.cs.stevens.edu/cs548#/Radiology> }
