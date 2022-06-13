@@ -1,4 +1,4 @@
-If you are interested in Kubernetes deployment, follow these instructions:
+
 Apply .yaml file in /dashboard to run the administration console for the cluster and access it through the web browser.
 Build docker image for PostgreSQL database using the Dockerfile and apply the .yaml files to run the application pod and service.
 Build docker image for ActiveMQ message broker using the Dockerfile and apply the .yaml files to run the broker.
